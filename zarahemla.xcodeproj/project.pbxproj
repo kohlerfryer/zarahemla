@@ -17,6 +17,8 @@
 		545CDBF41FF87910007F1286 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545CDBF21FF87910007F1286 /* LaunchScreen.storyboard */; };
 		545CDBFF1FF87910007F1286 /* zarahemlaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545CDBFE1FF87910007F1286 /* zarahemlaTests.swift */; };
 		545CDC0A1FF87910007F1286 /* zarahemlaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545CDC091FF87910007F1286 /* zarahemlaUITests.swift */; };
+		D088F6061FFB52F4006CC41C /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D088F6051FFB52F4006CC41C /* Arrow.swift */; };
+		D088F6081FFB7670006CC41C /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D088F6071FFB7670006CC41C /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		545CDC051FF87910007F1286 /* zarahemlaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = zarahemlaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		545CDC091FF87910007F1286 /* zarahemlaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zarahemlaUITests.swift; sourceTree = "<group>"; };
 		545CDC0B1FF87910007F1286 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D088F6051FFB52F4006CC41C /* Arrow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
+		D088F6071FFB7670006CC41C /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +109,10 @@
 			children = (
 				545CDBE31FF8790F007F1286 /* AppDelegate.swift */,
 				545CDBE51FF87910007F1286 /* GameScene.sks */,
+				D088F6071FFB7670006CC41C /* Util.swift */,
 				545CDBE71FF87910007F1286 /* Actions.sks */,
 				545CDBE91FF87910007F1286 /* GameScene.swift */,
+				D088F6051FFB52F4006CC41C /* Arrow.swift */,
 				545CDBEB1FF87910007F1286 /* GameViewController.swift */,
 				545CDBED1FF87910007F1286 /* Main.storyboard */,
 				545CDBF01FF87910007F1286 /* Assets.xcassets */,
@@ -274,6 +280,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				545CDBEA1FF87910007F1286 /* GameScene.swift in Sources */,
+				D088F6061FFB52F4006CC41C /* Arrow.swift in Sources */,
+				D088F6081FFB7670006CC41C /* Util.swift in Sources */,
 				545CDBEC1FF87910007F1286 /* GameViewController.swift in Sources */,
 				545CDBE41FF8790F007F1286 /* AppDelegate.swift in Sources */,
 			);
@@ -528,6 +536,7 @@
 				545CDC101FF87910007F1286 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		545CDC111FF87910007F1286 /* Build configuration list for PBXNativeTarget "zarahemlaTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +545,7 @@
 				545CDC131FF87910007F1286 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		545CDC141FF87910007F1286 /* Build configuration list for PBXNativeTarget "zarahemlaUITests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +554,7 @@
 				545CDC161FF87910007F1286 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
