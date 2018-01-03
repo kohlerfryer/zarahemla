@@ -20,6 +20,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var ground : SKSpriteNode?
     private var leftButton : SKSpriteNode?
     private var rightButton : SKSpriteNode?
+    private var moveLeft : Bool = false
+    private var moveRight : Bool = false
     
     override func sceneDidLoad() {
 
@@ -27,7 +29,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         leftButton = SKSpriteNode(color: UIColor.green, size: CGSize(width: 100, height: 50))
         leftButton?.position = CGPoint(x: -(screenWidth/2), y: 0)
-        leftButton?.deleg
+        leftButton?.name = "left_button"
+        
+        rightButton = SKSpriteNode(color: UIColor.green, size: CGSize(width: 100, height: 50))
+        rightButton?.position = CGPoint(x: (screenWidth/2), y: 0)
+        rightButton?.name = "right_button"
         
         ground = SKSpriteNode(color: UIColor.brown, size: CGSize(width: self.frame.width, height: 30))
         ground?.position = CGPoint(x: 0, y: -(screenHeight/2))
@@ -36,78 +42,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground?.physicsBody?.allowsRotation = false
         ground?.physicsBody?.isDynamic = false
         
-        samuel = SKSpriteNode(color: UIColor.darkGray, size: CGSize(width: 40, height: 100))
-        samuel?.position = CGPoint(x: 0, y: -(screenHeight/2)+40)
-        samuel?.physicsBody = SKPhysicsBody()
-            
+        samuel = SKSpriteNode(color: UIColor.darkGray, size: CGSize(width: 20, height: 50))
+        samuel?.position = CGPoint(x: 0, y: 30-(screenHeight/2))
+        samuel?.physicsBody = SKPhysicsBody(rectangleOf: samuel!.size)
+        
         self.addChild(leftButton!)
+        self.addChild(rightButton!)
         self.addChild(ground!)
         self.addChild(samuel!)
         
 
     }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        print("touch up at: \(pos)")
-//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//            n.position = pos
-//            n.strokeColor = SKColor.green
-//            self.addChild(n)
-//        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//            n.position = pos
-//            n.strokeColor = SKColor.blue
-//            self.addChild(n)
-//        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-         print("touch up at: \(pos)")
-//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-//            n.position = pos
-//            n.strokeColor = SKColor.red
-//            self.addChild(n)
-//        }
-    }
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        let touch:UITouch = touches.! as UITouch
-//        let positionInScene = touch.locationInNode(self)
-//        let touchedNode = self.nodeAtPoint(positionInScene)
-//        
-//        if let name = touchedNode.name
-//        {
-//            if name == "pineapple"
-//            {
-//                print("Touched")
-//            }
-//        }
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+        let touch:UITouch = touches.first! as UITouch
+        let positionInScene = touch.location(in: self)
+        let touchedNode = self.atPoint(positionInScene)
+        
+        if let name = touchedNode.name{
+            if name == self.leftButton?.name{
+                moveLeft = true
+            }
+            else if name == self.rightButton?.name{
+                moveRight = true
+            }
+        }
+  
+        
+//        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        print("didbegin")
-//        node!.removeFromParent()
-    }
-    
-    func didEnd(_ contact: SKPhysicsContact) {
-        print("didend")
+        self.moveLeft = false
+        self.moveRight = false
     }
     
     
@@ -131,6 +99,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Update entities
         for entity in self.entities {
             entity.update(deltaTime: dt)
+        }
+        
+        if(moveRight){
+            self.samuel?.position.x = (self.samuel?.position.x)! + 15
+        }else if(moveLeft){
+            self.samuel?.position.x = (self.samuel?.position.x)! - 15
         }
         
         
