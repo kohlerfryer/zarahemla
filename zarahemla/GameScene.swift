@@ -20,6 +20,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var ground : SKSpriteNode?
     private var leftButton : SKSpriteNode?
     private var rightButton : SKSpriteNode?
+    
+    private var runningSpeed : CGFloat = 15
     private var moveLeft : Bool = false
     private var moveRight : Bool = false
     
@@ -42,6 +44,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground?.physicsBody?.allowsRotation = false
         ground?.physicsBody?.isDynamic = false
         
+        let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        borderBody.friction = 0
+        self.physicsBody = borderBody
+        
         samuel = SKSpriteNode(color: UIColor.darkGray, size: CGSize(width: 20, height: 50))
         samuel?.position = CGPoint(x: 0, y: 30-(screenHeight/2))
         samuel?.physicsBody = SKPhysicsBody(rectangleOf: samuel!.size)
@@ -51,9 +57,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(ground!)
         self.addChild(samuel!)
         
-
     }
-
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch:UITouch = touches.first! as UITouch
@@ -68,9 +72,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 moveRight = true
             }
         }
-  
-        
-//        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -78,10 +79,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.moveRight = false
     }
     
-    
     override func update(_ currentTime: TimeInterval) {
-        
-        // Called before each frame is rendered
         
         // Initialize _lastUpdateTime if it has not already been
         if (self.lastUpdateTime == 0) {
@@ -96,18 +94,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.lastUpdateTime = currentTime
         }
         
-        // Update entities
         for entity in self.entities {
             entity.update(deltaTime: dt)
         }
         
+        self.moveSamuel()
+    }
+    
+    private func moveSamuel(){
         if(moveRight){
-            self.samuel?.position.x = (self.samuel?.position.x)! + 15
-        }else if(moveLeft){
-            self.samuel?.position.x = (self.samuel?.position.x)! - 15
+            self.samuel!.position.x += runningSpeed
         }
-        
-        
+        else if(moveLeft){
+            self.samuel!.position.x -= runningSpeed
+        }
+    }
+    
+    private func generateArrow(){
+        //let origin = CGPoint(x: getRandomScreenXValue(), y: Int(screenHeight)/3)
+        //let origin = CGPoint(x: 0, y: 0)
+        let arrow = Arrow(angle: Double(Util.getRandomNumber(lowerBound: 0, upperBound: 180)))
+        self.addChild(arrow.getNode()!)
+        //arrow.fire()
+    }
+    
+    public func getRandomScreenXValue() -> Int {
+        let lowerScreenXBound: Int = Int(-screenWidth/2)
+        let upperScreenXBound: Int = Int(screenWidth/2)
+        return Util.getRandomNumber(lowerBound: lowerScreenXBound, upperBound: upperScreenXBound)
     }
     
     // Screen width.
@@ -120,17 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return UIScreen.main.bounds.height
     }
     
-    private func generateArrow(){
-        let origin = CGPoint(x: getRandomScreenXValue(), y: Int(screenHeight)/3)
-        let arrow = Arrow(origin: origin)
-        self.addChild(arrow.getNode()!)
-    }
-    
-    public func getRandomScreenXValue() -> Int {
-        let lowerScreenXBound: Int = Int(-screenWidth/2)
-        let upperScreenXBound: Int = Int(screenWidth/2)
-        return Util.getRandomNumber(lowerBound: lowerScreenXBound, upperBound: upperScreenXBound)
-    }
+
 
     
 }
